@@ -20,7 +20,7 @@ if (isset($_POST['add'])) {
     $stmt = $conn->prepare("INSERT INTO items (name, description) VALUES (?, ?)");
     $stmt->bind_param("ss", $name, $desc);
     $stmt->execute();
-    header("Location: app.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -28,7 +28,7 @@ if (isset($_POST['add'])) {
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $conn->query("DELETE FROM items WHERE id=$id");
-    header("Location: app.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -40,7 +40,7 @@ if (isset($_POST['update'])) {
     $stmt = $conn->prepare("UPDATE items SET name=?, description=? WHERE id=?");
     $stmt->bind_param("ssi", $name, $desc, $id);
     $stmt->execute();
-    header("Location: app.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -81,7 +81,7 @@ if (isset($_GET['edit'])) {
         </table>
 
         <h2><?= $editItem ? 'Edit Item' : 'Add New Item' ?></h2>
-        <form method="post" class="form">
+        <form method="post" action="index.php" class="form">
             <?php if ($editItem): ?>
                 <input type="hidden" name="id" value="<?= $editItem['id'] ?>">
             <?php endif; ?>
@@ -91,7 +91,7 @@ if (isset($_GET['edit'])) {
                 <?= $editItem ? 'Update' : 'Add' ?>
             </button>
             <?php if ($editItem): ?>
-                <a href="app.php" class="cancel-btn">Cancel</a>
+                <a href="index.php" class="cancel-btn">Cancel</a>
             <?php endif; ?>
         </form>
     </div>
