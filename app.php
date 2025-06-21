@@ -10,6 +10,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// --- DEFINE EDIT ITEM DEFAULT ---
+$editItem = null;
+
 // --- HANDLE ADD ---
 if (isset($_POST['add'])) {
     $name = $_POST['name'];
@@ -42,7 +45,6 @@ if (isset($_POST['update'])) {
 }
 
 // --- HANDLE EDIT FORM DISPLAY ---
-$editItem = null;
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
     $result = $conn->query("SELECT * FROM items WHERE id=$id");
